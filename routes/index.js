@@ -1,15 +1,25 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express'),
+			db 			= require('../models'),
+			router 	= express.Router();
 
 
 // home page
 router.get('/', function(req, res, next) {
-	let data = {title: 'Welcome!'};
-	res.render('index', data);
+
+	// get all todos
+  db.Todo.find(function(err, todos){
+    if (err) {
+      console.log("DB error: " + err);
+      res.sendStatus(500);
+    }
+		console.log(todos);
+		res.render('index', {todos: todos});
+  });
 });
 
+
 // catch all 404
-app.get('*', (req, res) => {
+router.get('*', (req, res) => {
 	res.render('404', {});
 });
 
