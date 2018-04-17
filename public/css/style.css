@@ -1,0 +1,192 @@
+@import url('//fonts.googleapis.com/css?family=Muli:200,400,400i,700,900');
+
+html {
+	background: #000 url('/img/bg.jpg') center center no-repeat fixed;
+	background-size: cover;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	color: #494B57;
+	font: 16px/1.25 "Muli", sans-serif;
+}
+
+a {
+	color: #0EACC2;
+	text-decoration: none;
+}
+
+a:hover {
+	border-bottom: 1px solid #0EACC2;
+}
+
+h1, h2, h3 {
+	color: #F19482;
+	font-weight: 200;
+	text-transform: uppercase;
+	letter-spacing: .25rem;
+}
+
+
+header, footer {
+	position: fixed;
+	top: 0;
+	bottom: auto;
+	z-index: 1;
+	width: 100%;
+	/*padding: .5rem 0;*/
+	background: rgba(0,0,0,0.65);
+	color: #EEEFF4;
+	text-align: center;
+}
+
+header h1 {
+	margin: 3rem 0 -0.65rem;
+	color: #EEEFF4;
+	font-size: 3rem;
+	letter-spacing: 1rem;
+}
+
+
+main {
+	box-sizing: border-box;
+	width: 80%;
+	margin: 8.5rem auto 5rem;
+	padding: 1rem 1rem 2rem;
+	background: rgba(255,255,255,0.85);
+	text-align: center;
+}
+
+form h2 {
+	margin: 1rem 0 0;
+}
+
+.error {
+	font-weight: 900;
+}
+
+input:focus, textarea:focus, button:focus {
+    outline: none;
+}
+
+form input {
+	display: block;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
+	height: 4rem;
+	box-shadow: inset 1px 1px 1px rgba(0,0,0,0.15);
+	border: 0;
+	padding: 0 1.5rem;
+	background: #EEEFF4;
+	color: #494B57;
+	line-height: 4rem;
+	text-align: center;
+}
+
+.form-control:focus
+{
+  border-color: #0EACC2;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(14, 172, 194, 0.5);
+}
+
+button {
+	display: block;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
+	margin: 1rem 0;
+	border: 0;
+	padding: 1.5rem;
+	background: #0EACC2;
+	color: #fff;
+	font-size: 1.25rem;
+	text-transform: uppercase;
+	text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
+	letter-spacing: 1rem;
+}
+
+button:focus
+{
+  border-color: #c7c8ca;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(99, 100, 102, 0.75);
+}
+
+#todoList {
+	padding: 0;
+}
+
+.todo {
+	display: block;
+	position: relative;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
+	margin: 1rem 0;
+	padding: 1rem 3rem .7rem;
+	background: rgba(0,0,0,0.5);
+	color: #fff;
+	text-align: center;
+}
+
+.todo:first-child {
+	margin-top: 3rem;
+}
+
+.todo-content {
+	height: 28px;
+	width: 100%;
+	margin: -4px 0 0 -2px;
+	border: none;
+	text-align: center;
+}
+
+.disabled {
+	background: rgba(255,255,255,0);
+	color: #fff;
+}
+
+.checkbox, .delete, .save {
+	position: absolute;
+	top: .8rem;
+	left: .5rem;
+	z-index: 1;
+	height: 28px;
+	border-radius: .25rem;
+	background: #fff;
+	color: #0EACC2;
+	text-align: left;
+	cursor: pointer;
+}
+
+.delete, .save {
+	left: auto;
+	right: .5rem;
+}
+
+.checkbox svg, .delete svg, .save svg {
+	margin-top: -2px;
+}
+
+.done {
+	text-decoration: line-through #7D7D7D;
+}
+
+
+footer {
+	top: auto;
+	bottom: 0;
+	text-transform: uppercase;
+}
+
+.copyright, .photo-credit {
+	float: left;
+	margin: -0.05rem 0 0;
+	padding: 0 2rem 2rem;
+	font-size: .85rem;
+}
+
+.photo-credit {
+	float: right;
+}
