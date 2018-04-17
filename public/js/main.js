@@ -1,9 +1,71 @@
 console.log('Hello Dave.');
 
+let $todoList,
+		arrTodos = [];
+
 $(function() {
 
-	// create an array to add todos to
-	let arrTodos = [];
+	$todoList = $('#todoList');
+
+	$.ajax({
+		method: 'GET',
+		url: '/todos',
+		success: handleSuccess,
+		error: handleError
+	});
+
+});
+
+function outputTodoHTML(todo) {
+
+	let strIcon = 'fa-square',
+			strDone = '';
+
+	// determine if item is marked done and add class and change icon accordingly
+	console.log(todo.isDone);
+	if (todo.isDone) {
+		strIcon = 'fa-check-square';
+		strDone = 'done';
+	}
+
+  return `<li class="todo">
+						<div class="checkbox"><i class="far ${strIcon} fa-2x"></i></div>
+						<input type="text" class="todo-content disabled ${strDone}" value="${todo.text}">
+						<div class="delete"><i class="fas fa-window-close fa-2x"></i></div>
+					</li>`
+}
+
+
+function outputAllTodoHTML(todos) {
+  return todos.map(outputTodoHTML).join("");
+}
+
+function render() {
+
+  // empty Todo list
+  $todoList.empty();
+
+  // pass `allBooks` into the template function
+  let strTodosHTML = outputAllTodoHTML(arrTodos);
+
+  // append html to the view
+  $todoList.append(strTodosHTML);
+};
+
+
+function handleSuccess(json) {
+  arrTodos = json;
+  render();
+}
+
+function handleError(e) {
+  console.log('AJAX Error');
+  $('$todoList').text('Failed to load your Todos');
+}
+
+/*
+
+
 
 	// prepend todo to page
 	const addTodos  = (obj) => {
@@ -209,3 +271,5 @@ $(function() {
 		deleteTodo($(this));
 	})
 });
+
+*/

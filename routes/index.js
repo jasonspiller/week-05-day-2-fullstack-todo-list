@@ -1,10 +1,15 @@
 const express = require('express'),
 			db 			= require('../models'),
-			router 	= express.Router();
+			app 	= express.Router();
 
 
 // home page
-router.get('/', function(req, res, next) {
+app.get('/', function (req, res) {
+  res.render('index');
+});
+
+// all todos
+app.get('/todos', function(req, res, next) {
 
 	// get all todos
   db.Todo.find(function(err, todos){
@@ -13,15 +18,15 @@ router.get('/', function(req, res, next) {
       res.sendStatus(500);
     }
 		console.log(todos);
-		res.render('index', {arrTodos: todos});
+		res.json(todos);
   });
 });
 
 
 // catch all 404
-router.get('*', (req, res) => {
+app.get('*', (req, res) => {
 	res.render('404', {});
 });
 
 
-module.exports = router;
+module.exports = app;
