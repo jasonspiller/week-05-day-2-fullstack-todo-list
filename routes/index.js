@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
       res.sendStatus(500);
     }
 		console.log(todos);
-		res.render('index', {todos: todos});
+		res.render('index', {arrTodos: todos});
   });
 });
 

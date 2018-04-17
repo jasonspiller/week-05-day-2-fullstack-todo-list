@@ -21,7 +21,15 @@
 
 		</section>
 
-		<ul id="todoList"><!-- Insert todos here --></ul>
+		<ul id="todoList">
+
+			<% for (let i = 0; i < arrTodos.length; i++) { %>
+
+				<li><%= arrTodos[i].todo %></li>
+
+			<% } %>
+
+		</ul>
 
 	</main>
 
