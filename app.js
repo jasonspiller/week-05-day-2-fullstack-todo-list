@@ -2,6 +2,7 @@
 const express = require('express'),
 			path 		= require('path'),
 			logger 	= require('morgan'),
+			parser 	= require('body-parser'),
 			routes 	= require('./routes/index'),
 			app 		= express();
 
@@ -15,6 +16,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(parser.urlencoded({ extended: true }));
 app.use('/', routes);
 
 

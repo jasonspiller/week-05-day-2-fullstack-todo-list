@@ -8,7 +8,7 @@ app.get('/', function (req, res) {
   res.render('index');
 });
 
-// all todos
+// get all todos
 app.get('/todos', function(req, res, next) {
 
 	// get all todos
@@ -21,6 +21,17 @@ app.get('/todos', function(req, res, next) {
 		res.json(todos);
   });
 });
+
+// create new todo
+app.post('/todos', function (req, res) {
+
+  // create new todo from form data
+  console.log('Todo created: ', req.body);
+
+	db.Todo.create(req.body);
+  res.json(req.body);
+});
+
 
 
 // catch all 404

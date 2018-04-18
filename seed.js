@@ -3,20 +3,16 @@ const db = require('./models');
 
 const todo_list = [
   {
-		id: 1,
     text: 'This is a Todo'
   },
 	{
-		id: 2,
     text: 'This is another Todo',
 		isDone: true
   },
 	{
-		id: 3,
 		text: 'This is yet another Todo'
 	},
 	{
-		id: 4,
 		text: 'Okay, how many Todos do we need'
 	}
 ];
