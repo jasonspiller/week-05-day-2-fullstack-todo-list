@@ -25,13 +25,23 @@ app.get('/todos', function(req, res, next) {
 // create new todo
 app.post('/todos', function (req, res) {
 
-  // create new todo from form data
-  console.log('Todo created: ', req.body);
-
 	db.Todo.create(req.body);
   res.json(req.body);
 });
 
+// delete todo (:text is the key)
+app.delete('/todos/:text', function (req, res) {
+
+	let objParams = req.params;
+
+	db.Todo.findOneAndRemove(objParams, function(err, todos) {
+		if (err) {
+			console.log("Index Error: " + err);
+			res.sendStatus(500);
+		}
+		res.json(objParams);
+	});
+});
 
 
 // catch all 404
