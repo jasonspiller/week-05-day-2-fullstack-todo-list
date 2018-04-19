@@ -4,7 +4,7 @@ const express = require('express'),
 
 
 // home page
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
   res.render('index');
 });
 
@@ -23,14 +23,14 @@ app.get('/todos', function(req, res, next) {
 });
 
 // create new todo
-app.post('/todos', function (req, res) {
+app.post('/todos', function(req, res) {
 
 	db.Todo.create(req.body);
   res.json(req.body);
 });
 
 // delete todo (:text is the key)
-app.delete('/todos/:text', function (req, res) {
+app.delete('/todos/:text', function(req, res) {
 
 	let objParams = req.params;
 
@@ -41,6 +41,21 @@ app.delete('/todos/:text', function (req, res) {
 		}
 		res.json(objParams);
 	});
+});
+
+// update todo
+app.put('/todos/:text', function(req, res) {
+
+	let objBody = req.body;
+	let objParams = req.params
+
+  db.Todo.update(objParams, {$set: objBody}, function(err, result) {
+    if(err){
+			console.log("Index Error: " + err);
+			res.sendStatus(500);
+    }
+    res.json(objParams);
+  });
 });
 
 

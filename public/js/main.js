@@ -161,51 +161,56 @@ $(function() {
 	})
 
 
-	// mark a Todo as done
+	// mark a Todo done in the db
 	const doneTodo = (ele) => {
-		// check to see if box is "checked" and toggle accordingly
+
 		if (ele.find('svg').hasClass('fa-square')) {
 
-			// toggle icon and strikethought text
-			ele
-				.empty()
-				.append('<i class="far fa-check-square fa-2x"></i>')
-				.next('.todo-content')
-				.addClass('done');
-
-			let todoMatched = $(arrTodos).filter(function(){
-					return this.todoText === ele.next('.todo-content').val();
-			});
-
-			// reverse array to match todo list order
-			arrTodos.reverse();
-
-			// find each todo that is maked as done
-			$.each($('.checkbox'), function (i,val) {
-				if($(val).next('.todo-content').hasClass('done')) {
-					arrTodos[i].todoDone = true;
-				}
+			$.ajax({
+				method: 'PUT',
+				url: '/todos/' + ele.next('input').attr('data-id'),
+				data: {isDone: true},
+				success: doneTodoSuccess,
+				error: doneTodoError
 			});
 
 		} else {
 
-			// toggle icon and remove striketrough
-			ele
-				.empty()
-				.append('<i class="far fa-square fa-2x"></i>')
-				.next('.todo-content')
-				.removeClass('done');
-
-			// reverse array to match todo list
-			arrTodos.reverse();
-
-			// find each todo that is maked as done
-			$.each($('.checkbox'), function (i,val) {
-				if(!$(val).next('.todo-content').hasClass('done')) {
-					arrTodos[i].todoDone = false;
-				}
+			$.ajax({
+				method: 'PUT',
+				url: '/todos/' + ele.next('input').attr('data-id'),
+				data: {isDone: false},
+				success: doneTodoSuccess,
+				error: doneTodoError
 			});
+
 		}
+	}
+
+	// mark a Todo as done on the front-end
+	function doneTodoSuccess(json) {
+
+		// get input using text key value from json
+		let ele = $(`input[data-id='${json.text}']`).prev('div');
+
+		// check to see if box is "checked" and toggle accordingly
+		if (ele.find('svg').hasClass('fa-square')) {
+
+			// toggle icon and strikethought text
+			ele.empty().append('<i class="far fa-check-square fa-2x"></i>')
+			$(`input[data-id='${json.text}']`).addClass('done');
+
+		} else {
+
+			// toggle icon and strikethought text
+			ele.empty().append('<i class="far fa-square fa-2x"></i>')
+			$(`input[data-id='${json.text}']`).removeClass('done');
+			
+		}
+	}
+
+	function doneTodoError(e) {
+	  console.log('Todo Done Error');
 	}
 
 	// completed checkbox
