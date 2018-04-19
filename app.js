@@ -27,7 +27,7 @@ app.use('/', routes);
 // });
 
 //mLab port assignment
-app.set('port', process.env.PORT || 3000)
+app.set('port', process.env.PORT || 3001)
 
 app.listen(app.get('port'), () => {
 	console.log('Hello Dave.')

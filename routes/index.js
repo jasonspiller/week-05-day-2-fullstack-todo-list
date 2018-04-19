@@ -3,14 +3,6 @@ const express = require('express'),
 			app 	= express.Router();
 
 
-// mLab port assignment
-//app.set('port', process.env.PORT || 3001)
-
-// app.listen(app.get('port'), () => {
-// 	console.log(`✅ PORT: ${app.get('port')} 🌟`)
-// })
-
-
 // home page
 app.get('/', function(req, res) {
   res.render('index');
@@ -89,6 +81,5 @@ app.put('/todos/update/:text', function(req, res) {
 app.get('*', (req, res) => {
 	res.render('404', {});
 });
-
 
 module.exports = app;
