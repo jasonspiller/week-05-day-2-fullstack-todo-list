@@ -3,6 +3,14 @@ const express = require('express'),
 			app 	= express.Router();
 
 
+// mLab port assignment
+//app.set('port', process.env.PORT || 3001)
+
+// app.listen(app.get('port'), () => {
+// 	console.log(`✅ PORT: ${app.get('port')} 🌟`)
+// })
+
+
 // home page
 app.get('/', function(req, res) {
   res.render('index');
@@ -43,11 +51,29 @@ app.delete('/todos/:text', function(req, res) {
 	});
 });
 
-// update todo
+// mark todo as done
 app.put('/todos/:text', function(req, res) {
 
 	let objBody = req.body;
 	let objParams = req.params
+
+  db.Todo.update(objParams, {$set: objBody}, function(err, result) {
+    if(err){
+			console.log("Index Error: " + err);
+			res.sendStatus(500);
+    }
+    res.json(objParams);
+  });
+});
+
+// update todo
+app.put('/todos/update/:text', function(req, res) {
+
+	let objBody = req.body;
+	let objParams = req.params;
+
+	console.log(objBody);
+	console.log(objParams);
 
   db.Todo.update(objParams, {$set: objBody}, function(err, result) {
     if(err){

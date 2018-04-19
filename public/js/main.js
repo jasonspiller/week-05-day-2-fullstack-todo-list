@@ -205,7 +205,7 @@ $(function() {
 			// toggle icon and strikethought text
 			ele.empty().append('<i class="far fa-square fa-2x"></i>')
 			$(`input[data-id='${json.text}']`).removeClass('done');
-			
+
 		}
 	}
 
@@ -219,7 +219,9 @@ $(function() {
 	})
 
 
+	// setup Todo to be edited
 	const editTodo = (ele) => {
+		
 		ele
 			.removeClass('disabled')
 			.next('.delete')
@@ -227,9 +229,42 @@ $(function() {
 			.append('<i class="fas fa-check-square fa-2x"></i>')
 			.addClass('save')
 			.removeClass('delete');
+
+		// select all text
+		ele.prev('input').select();
 	}
 
+	// edit todo
+	$('#todoList').on('click', '.disabled', function() {
+		editTodo($(this));
+	})
+
+
+	// update Todo in db
 	const saveTodo = (ele) => {
+
+		console.log(ele);
+
+		let strPreviousText = ele.prev('input').attr('data-id');
+		let strNewText = ele.prev('input').val();
+
+		$.ajax({
+			method: 'PUT',
+			url: '/todos/update/' + ele.prev('input').attr('data-id'),
+			data: {text: strNewText},
+			success: updateTodoSuccess,
+			error: updateTodoError
+		});
+
+	}
+
+	// update a Todo on the front-end
+	function updateTodoSuccess(json) {
+
+		// get input using text key value from json
+		let ele = $(`input[data-id='${json.text}']`).next('div');
+
+		// old code that needs updating
 		ele
 			.addClass('delete')
 			.removeClass ('save')
@@ -238,6 +273,10 @@ $(function() {
 			.prev('.todo-content')
 			.addClass('disabled')
 			.prev('.todo-content');
+
+		// change the value and data-id to match new todoText
+		eleInput = $(`input[data-id='${json.text}']`);
+		eleInput.attr({'value': eleInput.val(), 'data-id': eleInput.val()})
 
 		// reverse array to match todo list
 		arrTodos.reverse();
@@ -248,11 +287,9 @@ $(function() {
 		});
 	}
 
-
-	// edit todo
-	$('#todoList').on('click', '.disabled', function() {
-		editTodo($(this));
-	})
+	function updateTodoError(e) {
+		console.log('Todo Update Error');
+	}
 
 	// save todo
 	$('#todoList').on('click', '.save', function() {

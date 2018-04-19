@@ -20,8 +20,15 @@ app.use(parser.urlencoded({ extended: true }));
 app.use('/', routes);
 
 
-// setup port listener/server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, function() {
-  console.log(`Hello Dave.`);
-});
+// // setup port listener/server
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, function() {
+//   console.log(`Hello Dave.`);
+// });
+
+//mLab port assignment
+app.set('port', process.env.PORT || 3000)
+
+app.listen(app.get('port'), () => {
+	console.log('Hello Dave.')
+})
